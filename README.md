@@ -30,22 +30,22 @@ $ docker run -it --rm -v ${PWD}:/app -v ${HOME}/.m2:/root/.m2 -w /app maven:3.6.
 - We can copy artifacts from a stage to another using (builder is previous stage): COPY --from=builder build/libs/app.jar app.jar
 - Not copied artifacts are not passed through stages and so, they are discarded, only the final stage is kept
 
-FROM maven:3.6.3-jdk-11-slim As build
-WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline
-COPY src src
-RUN mvn package
+- FROM maven:3.6.3-jdk-11-slim As build
+- WORKDIR /app
+- COPY pom.xml .
+- RUN mvn dependency:go-offline
+- COPY src src
+- RUN mvn package
 
-FROM tomcat:9
-COPY --from=build /app/target/web.war ${CATALINA_HOME}/webapps/ROOT.war
-EXPOSE 8080
-ENTRYPOINT ["catalina.sh", "run"]
+- FROM tomcat:9
+- COPY --from=build /app/target/web.war ${CATALINA_HOME}/webapps/ROOT.war
+- EXPOSE 8080
+- ENTRYPOINT ["catalina.sh", "run"]
 
 # Memory option for doker run command:
-docker run -m 200m my-image  (m - memory limit, minimum is 4M)
+- docker run -m 200m my-image  (m - memory limit, minimum is 4M)
 
 # CPU options for docker run command (only for java v 8u131):
-docker run --cpu-shares=1024 my-image (--cpu-shares, -c) - charing cpu between containers
-docker run --cpus=1 my-image (number of cpus)
-docker run --cpu-period=50000 --cpu-quota=25000 my-image
+- docker run --cpu-shares=1024 my-image (--cpu-shares, -c) - charing cpu between containers
+- docker run --cpus=1 my-image (number of cpus)
+- docker run --cpu-period=50000 --cpu-quota=25000 my-image
