@@ -64,3 +64,29 @@ $ docker run -it --rm -v ${PWD}:/app -v ${HOME}/.m2:/root/.m2 -w /app maven:3.6.
 -  2   ---->               50%
 -  3   ---->               33%
 -  4   ---->               25%
+
+
+# Compile the java cpu's application with docker:
+$ docker run -it --rm -v ${PWD}:/java openjdk:8u131-slim javac /java/Stats.java     ---> will generate the Stats.class in local dir (mounted by volume)
+
+# Run the application with docker, specifying memory and cpu consumption (java version openjdk:8u131-slim):
+$ docker run -it --rm -v ${PWD}:/java -m 100m --cpus=1 openjdk:8u131-slim java -cp /java Stats
+- Mem and cpu limits not respected:
+Heap size: 31MB
+Maximum size of heap: 443MB
+Available processors: 2
+
+# Set the memory configurations (java version openjdk:8u131-slim)
+$ docker run -it --rm -v ${PWD}:/java -m 100m --cpus=1 openjdk:8u131-slim java -cp /java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap Stats
+- Only Mem limit respected:
+Heap size: 7MB
+Maximum size of heap: 44MB
+Available processors: 2
+
+# Set the memory configurations ( changing java version to openjdk:8u191-alpine or openjdk:11.0.10-slim):
+$ docker run -it --rm -v ${PWD}:/java -m 100m --cpus=1 openjdk:8u191-alpine java -cp /java Stats
+$ docker run -it --rm -v ${PWD}:/java -m 100m --cpus=1 openjdk:11.0.10-slim java -cp /java Stats
+- Memory and cpu limits are respected:
+Heap size: 7MB
+Maximum size of heap: 48MB
+Available processors: 1
