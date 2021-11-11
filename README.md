@@ -60,7 +60,7 @@ $ docker run -it --rm -v ${PWD}:/app -v ${HOME}/.m2:/root/.m2 -w /app maven:3.6.
 - XX:InitialRAMFraction
 - XX:MaxRAMFraction (defaults to 4)
 * Value  -   Percentage of RAM for heap
--  1                  100%
--  2                  50%
--  3                  33%
--  4                  25%
+-  1   ---->               100%
+-  2   ---->               50%
+-  3   ---->               33%
+-  4   ---->               25%
