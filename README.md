@@ -50,19 +50,17 @@ $ docker run -it --rm -v ${PWD}:/app -v ${HOME}/.m2:/root/.m2 -w /app maven:3.6.
 - docker run --cpus=1 my-image (number of cpus)
 - docker run --cpu-period=50000 --cpu-quota=25000 my-image
 
-- For Java 9 and java 8u131+, for cpu the following options are automatically set:
--- XX:ParallelGCThreads
--- XX:CICompilerCount
-- For memory, use
--- XX:+UnlockExperimentalVMOptions
--- XX:+UseCGroupMemoryLimitForHeap
-- If we don's specify -Xms and -Xmx, then initial and maximum heap size are calculated based on the amount of memory on the machine with the following flags:
--- XX:InitialRAMFraction
--- XX:MaxRAMFraction (defaults to 4)
---- Value     Percentage of RAM for heap
----  1                  100%
----  2                  50%
----  3                  33%
----  4                  25%
-
-- 
+# For Java 9 and java 8u131+, for cpu the following options are automatically set:
+- XX:ParallelGCThreads
+- XX:CICompilerCount
+# For memory, use
+- XX:+UnlockExperimentalVMOptions
+- XX:+UseCGroupMemoryLimitForHeap
+# If we don's specify -Xms and -Xmx, then initial and maximum heap size are calculated based on the amount of memory on the machine with the following flags:
+- XX:InitialRAMFraction
+- XX:MaxRAMFraction (defaults to 4)
+# Value     Percentage of RAM for heap
+-  1                  100%
+-  2                  50%
+-  3                  33%
+-  4                  25%
