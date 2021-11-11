@@ -59,7 +59,7 @@ $ docker run -it --rm -v ${PWD}:/app -v ${HOME}/.m2:/root/.m2 -w /app maven:3.6.
 # If we don's specify -Xms and -Xmx, then initial and maximum heap size are calculated based on the amount of memory on the machine with the following flags:
 - XX:InitialRAMFraction
 - XX:MaxRAMFraction (defaults to 4)
-* Value     Percentage of RAM for heap
+* Value  -   Percentage of RAM for heap
 -  1                  100%
 -  2                  50%
 -  3                  33%
